@@ -300,7 +300,7 @@ func (p *serveCmd) Execute(_ context.Context, f *flag.FlagSet, _ ...interface{})
 	// Connect to our MQ instance.
 	//
 	//mq := fmt.Sprintf("tcp://localhost:%d", p.mqPort)
-	mqHost := 'localhost'
+	mqHost := "localhost"
 	if mp := os.Getenv("TUNNELLER_MQ_HOST"); mp != "" {
     		mqHost = mp
 	}
