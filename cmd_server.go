@@ -22,6 +22,7 @@ import (
 	"flag"
 	"fmt"
 	"net"
+	"os"
 	"net/http"
 	"net/http/httputil"
 	"strings"
@@ -298,7 +299,13 @@ func (p *serveCmd) Execute(_ context.Context, f *flag.FlagSet, _ ...interface{})
 	//
 	// Connect to our MQ instance.
 	//
-	mq := fmt.Sprintf("tcp://localhost:%d", p.mqPort)
+	//mq := fmt.Sprintf("tcp://localhost:%d", p.mqPort)
+	mqHost := 'localhost'
+	if mp := os.Getenv("TUNNELLER_MQ_HOST"); mp != "" {
+    		mqHost = mp
+	}
+	
+	mq := fmt.Sprintf("tcp://%s:%d", mqHost, p.mqPort)
 	fmt.Printf("Connecting to MQ %s\n", mq)
 
 	opts := MQTT.NewClientOptions().AddBroker(mq)
